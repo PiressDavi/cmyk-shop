@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          c: '#00AEEF',
+          m: '#EC008C',
+          y: '#FFF200',
+          k: '#1A1A1A',
+        },
+        backgroundImage: {
+          'hero-gradient':
+            'linear-gradient(135deg,#00AEEF 0%,#EC008C 50%,#FFF200 100%)',
+        },
+      },
+    },
+  }
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catálogo</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

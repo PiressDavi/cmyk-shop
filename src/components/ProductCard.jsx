@@ -30,8 +30,8 @@ export default function ProductCard({ product }) {
         </div>
       )}
       <h3 className="text-c text-xl font-extrabold mb-2 tracking-wide">{product.name}</h3>
-      <p className="text-white mb-4 text-sm leading-relaxed">{product.description}</p>
-      <p className="text-yellow-400 font-bold text-lg">{`R$ ${product.price.toFixed(2)}`}</p>
+      <p className="text-gray mb-4 text-sm leading-relaxed">{product.description}</p>
+      <p className="text-blue-400 font-bold text-lg">{`R$ ${product.price.toFixed(2)}`}</p>
     </div>
   );
 }

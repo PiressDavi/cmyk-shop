@@ -19,10 +19,15 @@ export default function Home() {
   if (products.length === 0)
     return <p className="text-center mt-20 text-white">Nenhum produto encontrado.</p>;
 
+  // Ordena produtos por data de criação (decrescente)
+  const sortedProducts = [...products].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
   return (
     <>
       <main className="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {products.map((product) => (
+        {sortedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </main>
@@ -39,3 +44,5 @@ export default function Home() {
     </>
   );
 }
+
+

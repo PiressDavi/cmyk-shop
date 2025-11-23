@@ -3,7 +3,7 @@ export default function ProductCard({ product }) {
   const message = `Gostaria de informações sobre o seguinte produto:\n\nNome: ${product.name}\nDescrição: ${product.description}\nPreço: R$ ${product.price.toFixed(2)}`;
 
   // Montar o link do WhatsApp (substitua o número abaixo pelo seu)
-  const whatsappLink = `https://wa.me/5511991941575?text=${encodeURIComponent(message)}`;
+  const whatsappLink = `https://wa.me/5511947853999?text=${encodeURIComponent(message)}`;
 
   return (
     <a

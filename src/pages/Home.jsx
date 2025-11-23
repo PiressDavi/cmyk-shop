@@ -1,40 +1,58 @@
 import React from "react";
-import { useProducts } from "../hooks/useProducts";
-import ProductCard from "../components/ProductCard";
+import { Link } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
+import logo from "../assets/Logo.jpg";
 
 export default function Home() {
-  const { products, loading, error } = useProducts();
-
-  if (loading)
-    return <p className="text-center mt-20 text-white">Carregando produtos...</p>;
-
-  if (error)
-    return (
-      <p className="text-center mt-20 text-red-500">
-        Erro ao carregar produtos: {error.message}
-      </p>
-    );
-
-  if (products.length === 0)
-    return <p className="text-center mt-20 text-white">Nenhum produto encontrado.</p>;
-
-  // Ordena produtos por data de criação (decrescente)
-  const sortedProducts = [...products].sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
-
   return (
     <>
-      <main className="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </main>
+      <div className="flex flex-col items-center justify-center min-h-screen gap-12 p-10 text-white">
 
-      {/* Botão flutuante do WhatsApp */}
+        {/* Logo centralizado */}
+        <img 
+          src={logo} 
+          alt="Gráfica Rápida JP" 
+          className="w-40 sm:w-52 mx-auto" 
+        />
+
+        {/* Título */}
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-wide text-center">
+          Escolha uma categoria
+        </h1>
+
+        {/* Botões */}
+        <div className="flex flex-col sm:flex-row gap-6">
+          
+          <Link
+            to="/grafica"
+            className="px-12 py-6 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 
+            rounded-2xl text-2xl font-bold shadow-xl transition transform hover:scale-105"
+          >
+            Gráfica
+          </Link>
+
+          <Link
+            to="/velas"
+            className="px-12 py-6 bg-gradient-to-r from-pink-500 to-pink-700 hover:from-pink-600 hover:to-pink-800 
+            rounded-2xl text-2xl font-bold shadow-xl transition transform hover:scale-105"
+          >
+            Velas
+          </Link>
+
+          <Link
+            to="/fotografia"
+            className="px-12 py-6 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 
+            rounded-2xl text-2xl font-bold shadow-xl transition transform hover:scale-105"
+          >
+            Fotografia
+          </Link>
+
+        </div>
+      </div>
+
+      {/* Botão flutuante WhatsApp */}
       <a
-        href="https://wa.me/5511991941575"
+        href="https://wa.me/5511947853999"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all duration-300"
@@ -44,5 +62,3 @@ export default function Home() {
     </>
   );
 }
-
-

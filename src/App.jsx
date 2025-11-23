@@ -1,7 +1,9 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Grafica from "./pages/Grafica";
+import Velas from "./pages/Velas";
+import Fotografia from "./pages/Fotografia";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
@@ -15,6 +17,11 @@ function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+
+            <Route path="/grafica" element={<Grafica />} />
+            <Route path="/velas" element={<Velas />} />
+            <Route path="/fotografia" element={<Fotografia />} />
+
             <Route path="/login" element={<Login />} />
             <Route
               path="/admin"

@@ -6,7 +6,7 @@ import logo from "../assets/Logo.jpg";
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen gap-8 p-10 text-white">
+      <div className="flex flex-col items-center justify-center min-h-screen gap-5 p-10 text-white">
         {/* Logo centralizado */}
         <img
           src={logo}

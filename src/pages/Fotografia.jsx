@@ -1,54 +1,66 @@
 import React from "react";
-import { useProducts } from "../hooks/useProducts";
-import ProductCard from "../components/ProductCard";
 import { FaWhatsapp } from "react-icons/fa";
 
+const videos = [
+  {
+    id: 1,
+    title: "Foto Polaroid",
+    description: "QRCode e WhatsApp direto para a sua mão",
+    file: "video1.mp4",
+  },
+  // {
+  //   id: 2,
+  //   title: "Evento Corporativo",
+  //   description: "Cobertura completa de eventos empresariais.",
+  //   file: "video2.mp4",
+  // },
+];
+
 export default function Fotografia() {
-  const { products, loading, error } = useProducts();
-
-  if (loading)
-    return <p className="text-center mt-20 text-white">Carregando produtos...</p>;
-
-  if (error)
-    return (
-      <p className="text-center mt-20 text-red-500">
-        Erro ao carregar produtos: {error.message}
-      </p>
-    );
-
-  const filtered = products.filter(
-    (p) => p.category_id === "11111111-1111-1111-1111-111111111113"
-  );
-
-  if (filtered.length === 0)
-    return <p className="text-center mt-20 text-white">Nenhum produto encontrado.</p>;
-
-  const sortedProducts = [...filtered].sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
-
   return (
     <>
-      <h1 className="text-4xl font-bold text-center text-white mt-10 mb-4">
+      <h1 className="text-4xl font-bold text-center text-white">
         Catálogo de Fotografia
       </h1>
 
-      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto mb-10">
-        Serviços fotográficos premium para registrar seus melhores momentos.
+      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto">
+        Assista aos vídeos dos nossos serviços.
       </p>
 
-      <main className="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {sortedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+      <main className="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+        {videos.map((video) => (
+          <div
+            key={video.id}
+            className="bg-black rounded-2xl shadow-xl overflow-hidden w-[240px] max-w-full"
+          >
+            {/* VÍDEO 9:16 */}
+            <div className="relative w-full aspect-[9/16] bg-black">
+              <video
+                src={`/videos/${video.file}`}
+                controls
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+
+            {/* INFO */}
+            <div className="p-3 bg-white">
+              <h2 className="text-base font-bold">{video.title}</h2>
+              <p className="text-sm text-gray-600">
+                {video.description}
+              </p>
+            </div>
+          </div>
         ))}
       </main>
 
-      {/* Botão flutuante WhatsApp */}
+      {/* WhatsApp */}
       <a
         href="https://wa.me/5511947853999"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all duration-300"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg"
       >
         <FaWhatsapp className="text-3xl" />
       </a>

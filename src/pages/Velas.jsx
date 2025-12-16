@@ -29,11 +29,11 @@ export default function Velas() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold text-center text-white mt-10 mb-4">
+      <h1 className="text-4xl font-bold text-center text-white">
         Catálogo de Velas
       </h1>
 
-      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto mb-10">
+      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto">
         Velas artesanais personalizadas feitas com carinho para lembranças e decoração.
       </p>
 

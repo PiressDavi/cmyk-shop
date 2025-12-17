@@ -8,12 +8,12 @@ const videos = [
     description: "QRCode e WhatsApp direto para a sua mão",
     file: "video1.mp4",
   },
-  // {
-  //   id: 2,
-  //   title: "Evento Corporativo",
-  //   description: "Cobertura completa de eventos empresariais.",
-  //   file: "video2.mp4",
-  // },
+  {
+    id: 2,
+    title: "Foto Polaroid",
+    description: "Para Festas e Eventos",
+    file: "video2.mp4",
+  },
 ];
 
 export default function Fotografia() {

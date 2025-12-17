@@ -5,14 +5,20 @@ const videos = [
   {
     id: 1,
     title: "Foto Polaroid",
-    description: "QRCode e WhatsApp direto para a sua mão",
+    description: "Conheça Nosso Aplicativo",
     file: "video1.mp4",
   },
   {
     id: 2,
     title: "Foto Polaroid",
-    description: "Para Festas e Eventos",
+    description: "Festa de Confraternização",
     file: "video2.mp4",
+  },
+    {
+    id: 3,
+    title: "Foto Polaroid",
+    description: "Casamento",
+    file: "video3.mp4",
   },
 ];
 

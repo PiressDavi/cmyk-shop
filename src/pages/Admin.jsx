@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../supabaseClient";
+import { logout } from "../services/auth";
+import {
+  getCategories,
+  seedCategories,
+  addProduct,
+} from "../services/localDB";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -11,59 +16,50 @@ export default function Admin() {
   const [imageUrl, setImageUrl] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [loading, setLoading] = useState(false);
-
   const [categories, setCategories] = useState([]);
 
-  // Carrega categorias do banco
+  /* ---------- LOAD CATEGORIES ---------- */
   useEffect(() => {
-    async function fetchCategories() {
-      const { data, error } = await supabase.from("categories").select("*");
-      if (error) {
-        console.error("Erro ao carregar categorias:", error.message);
-      } else {
-        setCategories(data);
-      }
-    }
-    fetchCategories();
+    seedCategories(); // cria categorias iniciais se não existirem
+    setCategories(getCategories());
   }, []);
 
-  async function handleAddProduct(e) {
+  /* ---------- ADD PRODUCT ---------- */
+  function handleAddProduct(e) {
     e.preventDefault();
 
     if (!name || !price || !categoryId) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
+      alert("Preencha todos os campos obrigatórios.");
       return;
     }
 
     setLoading(true);
 
-    const { error } = await supabase.from("products").insert([
-      {
-        name,
-        price: parseFloat(price),
-        description,
-        image_url: imageUrl,
-        category_id: categoryId, // ← salva a categoria correta
-      },
-    ]);
+    const newProduct = {
+      id: crypto.randomUUID(),
+      name,
+      price: Number(price),
+      description,
+      image_url: imageUrl,
+      category_id: categoryId,
+      created_at: new Date().toISOString(),
+    };
+
+    addProduct(newProduct);
 
     setLoading(false);
+    alert("Produto cadastrado com sucesso!");
 
-    if (error) {
-      alert("Erro ao cadastrar produto: " + error.message);
-    } else {
-      alert("Produto cadastrado com sucesso!");
-      setName("");
-      setPrice("");
-      setDescription("");
-      setImageUrl("");
-      setCategoryId("");
-    }
+    setName("");
+    setPrice("");
+    setDescription("");
+    setImageUrl("");
+    setCategoryId("");
   }
 
-  async function handleLogout() {
-    await supabase.auth.signOut();
-    alert("Sessão encerrada!");
+  /* ---------- LOGOUT ---------- */
+  function handleLogout() {
+    logout();
     navigate("/");
   }
 
@@ -75,7 +71,7 @@ export default function Admin() {
         </h1>
         <button
           onClick={handleLogout}
-          className="bg-red-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-red-700 transition duration-300"
+          className="bg-red-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-red-700 transition"
         >
           Logout
         </button>
@@ -86,49 +82,46 @@ export default function Admin() {
         className="bg-white rounded-3xl shadow-lg p-10 w-full max-w-2xl space-y-6"
       >
         <input
-          type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-4 rounded-xl border border-gray-300 text-gray-900 focus:ring-4 focus:ring-pink-400 transition"
+          className="w-full p-4 rounded-xl border border-gray-300 focus:ring-4 focus:ring-pink-400"
           placeholder="Nome do produto"
           required
         />
 
         <input
           type="number"
+          step="0.01"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="w-full p-4 rounded-xl border border-gray-300 text-gray-900 focus:ring-4 focus:ring-pink-400 transition"
+          className="w-full p-4 rounded-xl border border-gray-300 focus:ring-4 focus:ring-pink-400"
           placeholder="Preço"
           required
-          step="0.01"
         />
 
         <textarea
           rows="4"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-4 rounded-xl border border-gray-300 text-gray-900 focus:ring-4 focus:ring-pink-400 transition resize-none"
+          className="w-full p-4 rounded-xl border border-gray-300 focus:ring-4 focus:ring-pink-400 resize-none"
           placeholder="Descrição"
-        ></textarea>
+        />
 
         <input
           type="url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          className="w-full p-4 rounded-xl border border-gray-300 text-gray-900 focus:ring-4 focus:ring-pink-400 transition"
+          className="w-full p-4 rounded-xl border border-gray-300 focus:ring-4 focus:ring-pink-400"
           placeholder="URL da imagem"
         />
 
-        {/* Select com categorias do banco */}
         <select
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
-          className="w-full p-4 rounded-xl border border-gray-300 text-gray-900 focus:ring-4 focus:ring-pink-400 transition"
+          className="w-full p-4 rounded-xl border border-gray-300 focus:ring-4 focus:ring-pink-400"
           required
         >
           <option value="">Selecione a categoria</option>
-
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name}
@@ -139,7 +132,7 @@ export default function Admin() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-4 bg-gradient-to-r from-pink-500 via-red-500 to-pink-600 text-white font-extrabold rounded-3xl shadow-lg hover:from-pink-600 hover:via-red-600 hover:to-pink-700 disabled:opacity-60 transition duration-300"
+          className="w-full py-4 bg-gradient-to-r from-pink-500 via-red-500 to-pink-600 text-white font-extrabold rounded-3xl hover:opacity-90 disabled:opacity-60"
         >
           {loading ? "Cadastrando..." : "Cadastrar Produto"}
         </button>

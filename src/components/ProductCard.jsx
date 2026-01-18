@@ -1,59 +1,81 @@
 export default function ProductCard({ product }) {
-  // Criar a mensagem formatada
-  const message = `Gostaria de informações sobre o seguinte produto:\n\nNome: ${product.name}\nDescrição: ${product.description}\nPreço: R$ ${product.price.toFixed(2)}`;
+  const price =
+    typeof product.price === "number"
+      ? product.price.toFixed(2)
+      : "Sob consulta";
 
-  // Montar o link do WhatsApp (substitua o número abaixo pelo seu)
-  const whatsappLink = `https://wa.me/5511947853999?text=${encodeURIComponent(message)}`;
+  const message = `Olá! Gostaria de informações sobre o produto abaixo:\n\n🖨️ Produto: ${product.name
+    }\n📄 Descrição: ${product.description || "Não informada"
+    }\n💰 Preço: ${price === "Sob consulta" ? price : `R$ ${price}`}`;
+
+  const whatsappLink = `https://wa.me/5511947853999?text=${encodeURIComponent(
+    message
+  )}`;
 
   return (
     <a
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="block"
+      aria-label={`Solicitar informações sobre ${product.name} no WhatsApp`}
+      className="block h-full"
     >
       <div
         className="
-          bg-k
+          bg-white
           rounded-2xl
           p-6
-          shadow-[0_0_15px_rgba(0,174,239,0.7)]
-          hover:shadow-[0_0_30px_rgba(236,0,140,0.9)]
-          transition-shadow
-          duration-500
+          shadow-lg
+          hover:shadow-xl
+          transition-all
+          duration-300
           cursor-pointer
           flex
           flex-col
           items-center
           text-center
-          h-[400px]  /* altura fixa opcional */
+          h-[400px]
         "
       >
+        {/* IMAGEM */}
         {product.image_url ? (
-          <img
-            src={product.image_url}
-            alt={product.name}
-            className="w-full h-48 object-cover rounded-xl mb-4 border-4 border-gradient-to-r from-c via-m to-y"
+          <div
+            className="w-full h-48 rounded-xl mb-4 p-[3px]"
             style={{
-              borderImageSlice: 1,
-              borderImageSource:
-                'linear-gradient(90deg, #00AEEF, #EC008C, #FFF200)',
+              background:
+                "linear-gradient(90deg, #00AEEF, #EC008C, #FFF200)",
             }}
-          />
+          >
+            <img
+              src={product.image_url}
+              alt=""
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+              className="w-full h-full object-cover rounded-lg bg-white"
+            />
+          </div>
         ) : (
-          <div className="w-full h-48 bg-gray-700 rounded-xl flex items-center justify-center text-gray-400 mb-4">
+          <div className="w-full h-48 bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 mb-4">
             Sem imagem
           </div>
         )}
-        <h3 className="text-c text-xl font-extrabold mb-2 tracking-wide">
+
+        {/* INFO */}
+        <h3 className="text-gray-900 text-xl font-extrabold mb-2 tracking-wide">
           {product.name}
         </h3>
-        <p className="text-gray mb-4 text-sm leading-relaxed line-clamp-3">
-          {product.description}
+
+        <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-3">
+          {product.description || "Descrição não informada."}
         </p>
-        <p className="text-blue-400 font-bold text-lg">
-          {`R$ ${product.price.toFixed(2)}`}
-        </p>
+
+        <div className="mt-auto">
+          <p className="text-green-600 font-bold text-lg">
+            {price === "Sob consulta" ? price : `R$ ${price}`}
+          </p>
+        </div>
       </div>
     </a>
   );

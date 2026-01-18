@@ -1,52 +1,54 @@
-// src/pages/Login.jsx
 import { useState } from "react";
-import { supabase } from "../supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      alert("Erro ao fazer login: " + error.message);
-    } else {
+
+    const success = login(email, password);
+
+    if (success) {
       navigate("/admin");
+    } else {
+      setError("E-mail ou senha inválidos");
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-k p-6">
+    <div className="flex items-center justify-center min-h-[60vh]">
       <form
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm"
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded shadow w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Login Admin</h2>
+        <h1 className="text-xl font-bold mb-4">Login</h1>
+
+        {error && <p className="text-red-500 mb-2">{error}</p>}
+
         <input
           type="email"
-          placeholder="Email"
-          className="w-full mb-4 p-3 border rounded placeholder:text-blue-300 text-black"
+          placeholder="E-mail"
+          className="border p-2 w-full mb-3 rounded"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
+
         <input
           type="password"
           placeholder="Senha"
-          className="w-full mb-4 p-3 border rounded placeholder:text-blue-300 text-black"
+          className="border p-2 w-full mb-4 rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
+
         <button
           type="submit"
-          className="w-full bg-c text-k font-bold p-3 rounded hover:bg-m"
+          className="bg-c text-white w-full py-2 rounded"
         >
           Entrar
         </button>

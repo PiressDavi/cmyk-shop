@@ -7,7 +7,7 @@ export default function Navbar() {
         <Link to="/" className="text-2xl font-bold text-c">Sempre Juntos JP</Link>
         <div className="space-x-4">
           <Link to="/" className="hover:text-y">Produtos</Link>
-          <Link to="/admin" className="hover:text-m">Admin</Link>
+          {/* <Link to="/admin" className="hover:text-m">Admin</Link> */}
         </div>
       </div>
     </nav>

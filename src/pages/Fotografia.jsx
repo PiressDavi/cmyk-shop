@@ -1,8 +1,35 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { FaWhatsapp, FaTimes } from "react-icons/fa";
 import { fotografiaVideos } from "../data";
+=======
+import React from "react";
+import { FaWhatsapp } from "react-icons/fa";
+>>>>>>> 56ceb7ae98c69c629b7d599871a2b55d8e267180
+
+const videos = [
+  {
+    id: 1,
+    title: "Foto Polaroid",
+    description: "Conheça Nosso Aplicativo",
+    file: "video1.mp4",
+  },
+  {
+    id: 2,
+    title: "Foto Polaroid",
+    description: "Festa de Confraternização",
+    file: "video2.mp4",
+  },
+    {
+    id: 3,
+    title: "Foto Polaroid",
+    description: "Casamento",
+    file: "video3.mp4",
+  },
+];
 
 export default function Fotografia() {
+<<<<<<< HEAD
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
@@ -72,18 +99,56 @@ export default function Fotografia() {
               </h2>
               <p className="text-sm text-gray-600">
                 {item.description}
+=======
+  return (
+    <>
+      <h1 className="text-4xl font-bold text-center text-white">
+        Catálogo de Fotografia
+      </h1>
+
+      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto">
+        Assista aos vídeos dos nossos serviços.
+      </p>
+
+      <main className="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+        {videos.map((video) => (
+          <div
+            key={video.id}
+            className="bg-black rounded-2xl shadow-xl overflow-hidden w-[240px] max-w-full"
+          >
+            {/* VÍDEO 9:16 */}
+            <div className="relative w-full aspect-[9/16] bg-black">
+              <video
+                src={`/videos/${video.file}`}
+                controls
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+
+            {/* INFO */}
+            <div className="p-3 bg-white">
+              <h2 className="text-base font-bold">{video.title}</h2>
+              <p className="text-sm text-gray-600">
+                {video.description}
+>>>>>>> 56ceb7ae98c69c629b7d599871a2b55d8e267180
               </p>
             </div>
           </div>
         ))}
       </main>
 
+<<<<<<< HEAD
       {/* AVISO */}
       <p className="text-xs text-gray-500 text-center mt-8 italic">
         *Valores sujeitos a alteração. Preço final confirmado apenas via WhatsApp.
       </p>
 
       {/* WHATSAPP */}
+=======
+      {/* WhatsApp */}
+>>>>>>> 56ceb7ae98c69c629b7d599871a2b55d8e267180
       <a
         href="https://wa.me/5511947853999"
         target="_blank"

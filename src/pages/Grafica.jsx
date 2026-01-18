@@ -10,7 +10,15 @@ export default function Grafica() {
 
   return (
     <>
+<<<<<<< HEAD
       <p className="text-lg text-center max-w-2xl mx-auto mt-8">
+=======
+      <h1 className="text-4xl font-bold text-center text-white">
+        Catálogo de Gráfica
+      </h1>
+
+      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto">
+>>>>>>> 56ceb7ae98c69c629b7d599871a2b55d8e267180
         Escolha entre nossos produtos personalizados de gráfica.
       </p>
 

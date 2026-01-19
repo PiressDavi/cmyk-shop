@@ -131,7 +131,7 @@ export const graficaProducts = [
     id: "g17",
     name: "Chaveiro Personalizado Acrílico",
     description: "Chaveiro Personalizado Acrílico - Impressão Frente e Verso!",
-    price: 2.00,
+    price: 3.00,
     image_url: "/images/grafica17.jpg",
     category_id: "grafica",
   },

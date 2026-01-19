@@ -10,17 +10,8 @@ export default function Velas() {
 
   return (
     <>
-<<<<<<< HEAD
       <p className="text-lg text-center max-w-2xl mx-auto mt-8">
         Velas artesanais feitas para transformar ambientes.
-=======
-      <h1 className="text-4xl font-bold text-center text-white">
-        Catálogo de Velas
-      </h1>
-
-      <p className="text-lg text-center text-gray-300 max-w-2xl mx-auto">
-        Velas artesanais personalizadas feitas com carinho para lembranças e decoração.
->>>>>>> 56ceb7ae98c69c629b7d599871a2b55d8e267180
       </p>
 
       <main className="max-w-6xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
